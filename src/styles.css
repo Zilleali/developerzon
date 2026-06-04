@@ -154,6 +154,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
+  aside#lovable-badge {
+    display: none;
+}
 }
 
 @layer utilities {
