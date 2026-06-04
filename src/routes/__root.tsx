@@ -93,6 +93,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: siteDescription },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a5dd175f-f695-4e3d-a1fb-e87132297522" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/a5dd175f-f695-4e3d-a1fb-e87132297522" },
+      { title: "Developer Zon – IT Solutions & Network Engineering" },
+      { property: "og:title", content: "Developer Zon – IT Solutions & Network Engineering" },
+      { name: "twitter:title", content: "Developer Zon – IT Solutions & Network Engineering" },
+      { name: "description", content: "Developer Zon provides professional IT solutions, including network engineering, MikroTik & Cisco configuration, remote IT support, server setup, and FTTH." },
+      { property: "og:description", content: "Developer Zon provides professional IT solutions, including network engineering, MikroTik & Cisco configuration, remote IT support, server setup, and FTTH." },
+      { name: "twitter:description", content: "Developer Zon provides professional IT solutions, including network engineering, MikroTik & Cisco configuration, remote IT support, server setup, and FTTH." },
     ],
     links: [
       {
