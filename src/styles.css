@@ -152,5 +152,36 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .dz-grid-bg {
+    background-image:
+      linear-gradient(rgba(232, 82, 26, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232, 82, 26, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .dz-radial-glow {
+    background: radial-gradient(ellipse at center, rgba(232, 82, 26, 0.22), transparent 60%);
+  }
+  .dz-card {
+    background-color: #141414;
+    border: 1px solid #2A2A2A;
+    transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  }
+  .dz-card:hover {
+    border-color: #E8521A;
+    box-shadow: 0 0 0 1px rgba(232,82,26,0.25), 0 10px 40px -10px rgba(232,82,26,0.35);
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
   }
 }
