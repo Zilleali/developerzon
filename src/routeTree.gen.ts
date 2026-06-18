@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ZontabSupportRouteImport } from './routes/zontab-support'
 import { Route as ZontabPrivacyRouteImport } from './routes/zontab-privacy'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ZontabSupportRoute = ZontabSupportRouteImport.update({
+  id: '/zontab-support',
+  path: '/zontab-support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ZontabPrivacyRoute = ZontabPrivacyRouteImport.update({
   id: '/zontab-privacy',
   path: '/zontab-privacy',
@@ -26,31 +32,42 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/zontab-privacy': typeof ZontabPrivacyRoute
+  '/zontab-support': typeof ZontabSupportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/zontab-privacy': typeof ZontabPrivacyRoute
+  '/zontab-support': typeof ZontabSupportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/zontab-privacy': typeof ZontabPrivacyRoute
+  '/zontab-support': typeof ZontabSupportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/zontab-privacy'
+  fullPaths: '/' | '/zontab-privacy' | '/zontab-support'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/zontab-privacy'
-  id: '__root__' | '/' | '/zontab-privacy'
+  to: '/' | '/zontab-privacy' | '/zontab-support'
+  id: '__root__' | '/' | '/zontab-privacy' | '/zontab-support'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ZontabPrivacyRoute: typeof ZontabPrivacyRoute
+  ZontabSupportRoute: typeof ZontabSupportRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/zontab-support': {
+      id: '/zontab-support'
+      path: '/zontab-support'
+      fullPath: '/zontab-support'
+      preLoaderRoute: typeof ZontabSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/zontab-privacy': {
       id: '/zontab-privacy'
       path: '/zontab-privacy'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ZontabPrivacyRoute: ZontabPrivacyRoute,
+  ZontabSupportRoute: ZontabSupportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
