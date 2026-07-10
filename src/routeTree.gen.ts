@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZontabSupportRouteImport } from './routes/zontab-support'
 import { Route as ZontabPrivacyRouteImport } from './routes/zontab-privacy'
+import { Route as PsxLensRouteImport } from './routes/psx-lens'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ZontabSupportRoute = ZontabSupportRouteImport.update({
@@ -23,6 +24,11 @@ const ZontabPrivacyRoute = ZontabPrivacyRouteImport.update({
   path: '/zontab-privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PsxLensRoute = PsxLensRouteImport.update({
+  id: '/psx-lens',
+  path: '/psx-lens',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/psx-lens': typeof PsxLensRoute
   '/zontab-privacy': typeof ZontabPrivacyRoute
   '/zontab-support': typeof ZontabSupportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/psx-lens': typeof PsxLensRoute
   '/zontab-privacy': typeof ZontabPrivacyRoute
   '/zontab-support': typeof ZontabSupportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/psx-lens': typeof PsxLensRoute
   '/zontab-privacy': typeof ZontabPrivacyRoute
   '/zontab-support': typeof ZontabSupportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/zontab-privacy' | '/zontab-support'
+  fullPaths: '/' | '/psx-lens' | '/zontab-privacy' | '/zontab-support'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/zontab-privacy' | '/zontab-support'
-  id: '__root__' | '/' | '/zontab-privacy' | '/zontab-support'
+  to: '/' | '/psx-lens' | '/zontab-privacy' | '/zontab-support'
+  id: '__root__' | '/' | '/psx-lens' | '/zontab-privacy' | '/zontab-support'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PsxLensRoute: typeof PsxLensRoute
   ZontabPrivacyRoute: typeof ZontabPrivacyRoute
   ZontabSupportRoute: typeof ZontabSupportRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZontabPrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/psx-lens': {
+      id: '/psx-lens'
+      path: '/psx-lens'
+      fullPath: '/psx-lens'
+      preLoaderRoute: typeof PsxLensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,9 +104,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PsxLensRoute: PsxLensRoute,
   ZontabPrivacyRoute: ZontabPrivacyRoute,
   ZontabSupportRoute: ZontabSupportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
